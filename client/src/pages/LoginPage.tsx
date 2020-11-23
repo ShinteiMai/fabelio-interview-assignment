@@ -6,7 +6,6 @@ import { Field, Form, Formik } from "formik";
 import { login, userSelector } from "../features/userSlice";
 import { SliceStatus } from "../globals";
 import { useHistory } from "react-router-dom";
-import GoogleAuth from "../components/GoogleAuth";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -29,7 +28,6 @@ const LoginPage = () => {
     }
 
     if (status.state === SliceStatus.SUCCESS && !!localStorage.getItem("jwt")) {
-      console.log("got here");
       history.push("/");
     }
     //eslint-disable-next-line
@@ -54,28 +52,46 @@ const LoginPage = () => {
             }}
           >
             {({ errors, touched }) => (
-              <Form className="flex flex-col">
+              <Form className="flex flex-col flex-start items-start justify-between mt-4">
                 <div className="mb-4">
-                  <Field name="email" type="email" />
+                  <Field
+                    className="shadow appearance-none border rounded py-1 px-3 text-grey-darker"
+                    name="email"
+                    type="email"
+                  />
                   {errors.email && touched.email ? (
                     <div>{errors.email}</div>
                   ) : null}
-                  <p>Email</p>
+                  <p className="text-sm">Email</p>
                 </div>
                 <div className="mb-4">
-                  <Field name="password" type="password" />
+                  <Field
+                    className="shadow appearance-none border rounded py-1 px-3 text-grey-darker"
+                    name="password"
+                    type="password"
+                  />
                   {errors.password && touched.password ? (
                     <div>{errors.password}</div>
                   ) : null}
                   <p>Password</p>
                 </div>
 
-                <button type="submit">Submit</button>
-                {!!error && <p>{error}</p>}
+                <button
+                  type="submit"
+                  className="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
+                >
+                  Login
+                </button>
+                <div className="my-8">{!!error && <p>{error}</p>}</div>
+                <a
+                  href="/register"
+                  className="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
+                >
+                  Register with Email
+                </a>
               </Form>
             )}
           </Formik>
-          <GoogleAuth />
         </div>
       </div>
     </Layout>

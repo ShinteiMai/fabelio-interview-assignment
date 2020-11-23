@@ -25,8 +25,7 @@ export const createApiRequest = async (
     return response.data;
   } catch (err) {
     console.error(err);
-    const { statusCode, message } = err.response.data;
-    throw new Error(JSON.stringify({ statusCode, message }));
+    throw new Error(JSON.stringify({ ...err.response.data }));
   }
 };
 

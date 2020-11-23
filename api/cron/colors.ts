@@ -20,7 +20,6 @@ const initializeColors = async () => {
         },
       },
     );
-    console.log(data);
   }
 };
 

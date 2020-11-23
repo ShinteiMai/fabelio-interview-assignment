@@ -13,7 +13,6 @@ const ProductCard = ({ product }: Props) => {
   const [activeColor, setActiveColor] = useState<number>(
     product.productImages.length - 1
   );
-  console.log(product);
   return (
     <>
       <div>

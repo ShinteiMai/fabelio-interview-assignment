@@ -68,7 +68,6 @@ export const fetchProducts = wrapReduxAsyncHandler(
       ? await fromApi.getProducts()
       : await fromApi.getFilteredProducts();
 
-    console.log(products);
     dispatch(getProductsReducer({ products }));
   }
 );

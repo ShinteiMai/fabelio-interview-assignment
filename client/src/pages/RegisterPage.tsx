@@ -59,38 +59,65 @@ const RegisterPage = () => {
           }}
         >
           {({ errors, touched }) => (
-            <Form className="flex flex-col">
+            <Form className="flex flex-col flex-start items-start justify-between mt-4">
               <div className="mb-4">
-                <Field name="firstName" />
+                <Field
+                  name="firstName"
+                  className="shadow appearance-none border rounded py-1 px-3 text-grey-darker"
+                />
                 {errors.firstName && touched.firstName ? (
                   <div>{errors.firstName}</div>
                 ) : null}
                 <p>First Name</p>
               </div>
               <div className="mb-4">
-                <Field name="lastName" />
+                <Field
+                  name="lastName"
+                  className="shadow appearance-none border rounded py-1 px-3 text-grey-darker"
+                />
                 {errors.lastName && touched.lastName ? (
                   <div>{errors.lastName}</div>
                 ) : null}
                 <p>Last Name</p>
               </div>
               <div className="mb-4">
-                <Field name="email" type="email" />
+                <Field
+                  name="email"
+                  type="email"
+                  className="shadow appearance-none border rounded py-1 px-3 text-grey-darker"
+                />
                 {errors.email && touched.email ? (
                   <div>{errors.email}</div>
                 ) : null}
                 <p>Email</p>
               </div>
               <div className="mb-4">
-                <Field name="password" type="password" />
+                <Field
+                  name="password"
+                  type="password"
+                  className="shadow appearance-none border rounded py-1 px-3 text-grey-darker"
+                />
                 {errors.password && touched.password ? (
                   <div>{errors.password}</div>
                 ) : null}
                 <p>Password</p>
               </div>
 
-              <button type="submit">Register</button>
-              {error && <p>{error}</p>}
+              <button
+                type="submit"
+                className="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
+              >
+                Register
+              </button>
+              <div className="mb-8">{error && <p>{error}</p>}</div>
+
+              {/* <GoogleAuth /> */}
+              <a
+                href="/login"
+                className="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
+              >
+                Login
+              </a>
             </Form>
           )}
         </Formik>
