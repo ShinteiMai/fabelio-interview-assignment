@@ -4,12 +4,19 @@ import { ConfigService } from './config/config.service';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { validationExceptionFactory } from './common/validation-exception.factory';
-import * as helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
-  app.use(helmet());
+  app.enableCors({
+    origin: ['https://fabelio.stevenhansel.com'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
+    credentials: true,
+    allowedHeaders:
+      'Origin,X-Requested-With,Content-Type,Accept,Authorization,X-Forwarded-for',
+  });
+
   /** Configuration Options */
   const config = app.get(ConfigService);
 
