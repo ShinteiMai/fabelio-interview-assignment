@@ -67,6 +67,8 @@ export const fetchProducts = wrapReduxAsyncHandler(
     const products = !localStorage.getItem("jwt")
       ? await fromApi.getProducts()
       : await fromApi.getFilteredProducts();
+
+    console.log(products);
     dispatch(getProductsReducer({ products }));
   }
 );

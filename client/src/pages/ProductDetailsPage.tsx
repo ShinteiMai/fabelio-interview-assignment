@@ -13,7 +13,10 @@ const ProductDetailsPage = ({ match }: RouteComponentProps<MatchParams>) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(viewProduct({ productId }));
+    if (localStorage.getItem("jwt")) {
+      dispatch(viewProduct({ productId }));
+    }
+
     //eslint-disable-next-line
   }, []);
 

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 import Layout from "../components/Layout";
+import ProductCard from "../components/ProductCard";
 import { fetchProducts, productsSelector } from "../features/productSlice";
 import { SliceStatus } from "../globals";
 
@@ -29,7 +30,7 @@ const ProductsPage = () => {
               <ScaleLoader />
             </div>
           ) : (
-            <>
+            <div className="grid grid-">
               {data &&
                 data.map((product) => (
                   <div
@@ -37,10 +38,10 @@ const ProductsPage = () => {
                     onClick={() => history.push(`/products/${product.id}`)}
                     className="cursor-pointer"
                   >
-                    {product.name}
+                    <ProductCard product={product} />
                   </div>
                 ))}
-            </>
+            </div>
           )}
         </div>
       </div>

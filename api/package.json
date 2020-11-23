@@ -25,9 +25,9 @@
     "cron:register": "NODE_ENV=development ts-node cron/register.ts",
     "cron:colors": "NODE_ENV=development ts-node cron/colors.ts",
     "cron:products": "NODE_ENV=development ts-node cron/products.ts",
-    "cron-prod:register": "NODE_ENV=development ts-node cron/register.ts",
-    "cron-prod:colors": "NODE_ENV=development ts-node cron/colors.ts",
-    "cron-prod:products": "NODE_ENV=development ts-node cron/products.ts"
+    "cron-prod:register": "NODE_ENV=production ts-node cron/register.ts",
+    "cron-prod:colors": "NODE_ENV=production ts-node cron/colors.ts",
+    "cron-prod:products": "NODE_ENV=production ts-node cron/products.ts"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
