@@ -13,6 +13,9 @@ const ProductsPage = () => {
     dispatch(fetchProducts({}));
     //eslint-disable-next-line
   }, []);
+
+  console.log(data);
+
   return (
     <Layout title="Products">
       <div>

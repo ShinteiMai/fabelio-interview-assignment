@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import useScrollDirection from "../hooks/useScrollDirection";
 
 const Navbar = () => {
   const scrollDirection = useScrollDirection({ initialDirection: "down" });
   const [scrolledToTop, setScrolledToTop] = useState<boolean>(true);
+  const history = useHistory();
 
   const handleScroll = () => {
     setScrolledToTop(window.pageYOffset < 50);
@@ -17,6 +19,8 @@ const Navbar = () => {
     };
   }, []);
 
+  const isAuthenticated = !!localStorage.getItem("jwt");
+
   return (
     <div
       className={
@@ -28,17 +32,40 @@ const Navbar = () => {
       }
     >
       <div className="ml-3">
-        <p className="text-semibold text-white font-medium hidden md:block">
+        <p
+          className="text-semibold text-white font-medium hidden md:block cursor-pointer"
+          onClick={() => history.push("/")}
+        >
           Fabelio
         </p>
       </div>
       <div className="mr-4">
-        <a className="text-white text-base mr-3 font-medium" href="/login">
-          Login
-        </a>
-        <a className="text-white text-base font-medium" href="/register">
-          Register
-        </a>
+        {!isAuthenticated ? (
+          <>
+            <a
+              className="text-white text-base mr-3 font-medium cursor-pointer"
+              href="/login"
+            >
+              Login
+            </a>
+            <a
+              className="text-white text-base font-medium cursor-pointer"
+              href="/register"
+            >
+              Register
+            </a>
+          </>
+        ) : (
+          <a
+            className="text-white text-base font-medium cursor-pointer"
+            onClick={() => {
+              localStorage.setItem("jwt", "");
+            }}
+            href="/"
+          >
+            Logout
+          </a>
+        )}
       </div>
     </div>
   );

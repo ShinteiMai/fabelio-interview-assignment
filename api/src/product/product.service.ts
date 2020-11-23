@@ -71,12 +71,14 @@ export class ProductService {
 
     let qb = await this.productRepository
       .createQueryBuilder('product')
+      .leftJoinAndSelect('product.productImages', 'productImages')
+      .leftJoinAndSelect('productImages.color', 'colors')
+      .leftJoinAndSelect('product.views', 'views')
       .addSelect(
         "ts_rank_cd(to_tsvector(coalesce(product.name,'')), plainto_tsquery(:query))",
         'rank',
       );
 
-    console.log(seenProductsIds.length);
     if (seenProductsIds.length !== 0) {
       qb.where('product.id NOT IN (:...viewedProductIds)', {
         viewedProductIds: seenProductsIds,
@@ -95,7 +97,6 @@ export class ProductService {
     return enhancedEntities.sort((a, b) => {
       return parseFloat(a.rank) - parseFloat(b.rank);
     });
-    // return await this.productRepository.find();
   }
 
   async findById(id: string): Promise<Product> {
