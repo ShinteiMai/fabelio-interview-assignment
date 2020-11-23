@@ -41,7 +41,6 @@ const userSlice = createSlice({
       action: PayloadAction<{ token: string; expiresIn: number }>
     ) => {
       const { token } = action.payload;
-      console.log(token);
       localStorage.setItem("jwt", token);
     },
     registerReducer: (state, action: PayloadAction<{ user: User }>) => {
@@ -67,7 +66,6 @@ export const login = wrapReduxAsyncHandler(
   statusHandler,
   async (dispatch, { email, password }) => {
     const response = await fromApi.login(email, password);
-    console.log(response);
     dispatch(loginReducer({ ...response }));
   }
 );

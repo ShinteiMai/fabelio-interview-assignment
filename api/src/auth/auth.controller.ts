@@ -57,7 +57,6 @@ export class AuthController {
     const jwt: string = req.user.jwt;
     const domain = this.configService.webDomain;
     if (jwt) {
-      console.log(jwt);
       res.redirect(`${domain}/redirect/google/` + jwt);
     } else {
       res.redirect(`${domain}/login`);

@@ -14,8 +14,6 @@ const ProductsPage = () => {
     //eslint-disable-next-line
   }, []);
 
-  console.log(data);
-
   return (
     <Layout title="Products">
       <div>

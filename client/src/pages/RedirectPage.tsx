@@ -10,7 +10,6 @@ const RedirectPage = ({ match }: RouteComponentProps<MatchParams>) => {
 
   useEffect(() => {
     if (!!jwt) {
-      console.log(jwt);
       localStorage.setItem("jwt", jwt);
       history.push("/");
     } else {

@@ -10,7 +10,9 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   const history = useHistory();
-  const [activeColor, setActiveColor] = useState<number>(0);
+  const [activeColor, setActiveColor] = useState<number>(
+    product.productImages.length - 1
+  );
   return (
     <>
       <div>

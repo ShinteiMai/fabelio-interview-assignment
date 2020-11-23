@@ -20,13 +20,11 @@ export const initializeProducts = async () => {
       });
     }
     const payload = { ...product, productImages };
-    // console.log(payload);
     const { data } = await axios.post(`${domain}/products`, payload, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(data);
   }
 };
 initializeProducts();
