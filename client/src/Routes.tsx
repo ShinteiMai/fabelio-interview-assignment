@@ -40,7 +40,7 @@ const Routes: React.FC = () => {
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <Route path="/products/:id" component={ProductDetailsPage} />
-            <Route path="/redirect" component={RedirectPage} />
+            <Route path="/redirect/google/:jwt" component={RedirectPage} />
             <Route exact path="/" component={ProductsPage} />
           </Switch>
         </animated.div>

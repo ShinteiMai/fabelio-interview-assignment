@@ -42,6 +42,7 @@ export class AuthService {
           email: user.email,
         });
         return {
+          user,
           token: accessToken,
           expiresIn: this.configService.jwtExpiresIn,
         };

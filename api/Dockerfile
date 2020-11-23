@@ -7,6 +7,7 @@ COPY package.json .
 COPY yarn.lock .
 
 RUN yarn && yarn cache clean
+RUN yarn build
 
 # 1. Bundle app source
 COPY . .
