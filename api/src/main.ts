@@ -4,10 +4,12 @@ import { ConfigService } from './config/config.service';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { validationExceptionFactory } from './common/validation-exception.factory';
+import * as helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.enableCors();
+  app.use(helmet());
   /** Configuration Options */
   const config = app.get(ConfigService);
 

@@ -70,7 +70,7 @@ export class ConfigService {
     let domain: string;
     switch (process.env.NODE_ENV) {
       case 'development':
-        domain = 'http://localhost:3030';
+        domain = 'http://localhost:3000';
         break;
       case 'production':
         domain = 'https://fabelio.stevenhansel.com';

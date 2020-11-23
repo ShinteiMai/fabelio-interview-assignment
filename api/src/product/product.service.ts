@@ -7,7 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Color } from 'src/colors/color.entity';
 import { User } from 'src/user/user.entity';
-import { Repository } from 'typeorm';
+import { QueryBuilder, Repository } from 'typeorm';
 import { CreateProductDto } from './dto';
 import { Product } from './entities/product.entity';
 import { ProductImage } from './entities/productImage.entity';
@@ -56,24 +56,38 @@ export class ProductService {
         `User with the id of ${callerUserId} was not found`,
       );
 
-    const seenProductsIds = user.viewedProducts.map(p => p.productId);
+    let seenProductsIds = user.viewedProducts.map(p => p.productId);
+
+    const [_, productSum] = await this.productRepository.findAndCount();
+    if (seenProductsIds.length === productSum) {
+      user.viewedProducts = [];
+      seenProductsIds = [];
+      await this.userRepository.save(user);
+    }
 
     const lastPostSeen = await this.productRepository.findOne(
       seenProductsIds[seenProductsIds.length - 1],
     );
 
-    const { raw, entities } = await this.productRepository
+    let qb = await this.productRepository
       .createQueryBuilder('product')
       .addSelect(
         "ts_rank_cd(to_tsvector(coalesce(product.name,'')), plainto_tsquery(:query))",
         'rank',
-      )
-      .where('product.id NOT IN (:...viewedProductIds)', {
+      );
+
+    console.log(seenProductsIds.length);
+    if (seenProductsIds.length !== 0) {
+      qb.where('product.id NOT IN (:...viewedProductIds)', {
         viewedProductIds: seenProductsIds,
-      })
+      });
+    }
+
+    const { raw, entities } = await qb
       .orderBy('rank', 'DESC')
       .setParameter('query', lastPostSeen.name)
       .getRawAndEntities();
+
     const enhancedEntities = entities.map((e, index) => {
       return { ...e, rank: raw[index].rank };
     });
@@ -81,6 +95,7 @@ export class ProductService {
     return enhancedEntities.sort((a, b) => {
       return parseFloat(a.rank) - parseFloat(b.rank);
     });
+    // return await this.productRepository.find();
   }
 
   async findById(id: string): Promise<Product> {

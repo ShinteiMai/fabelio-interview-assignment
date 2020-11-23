@@ -1,14 +1,18 @@
 import { Dispatch } from "react";
 import { ActionCreatorWithPayload, PayloadAction } from "@reduxjs/toolkit";
 import { SliceStatus } from "../globals";
-import { leftPad } from "../utils/leftPad";
 
 export const statusHandlerReducer = {
   initialize: (state: any, action: PayloadAction) => {
     state.status.state = SliceStatus.LOADING;
   },
-  error: (state: any, action: PayloadAction) => {
+  error: (
+    state: any,
+    action: PayloadAction<{ statusCode: number; message: string }>
+  ) => {
+    const { message } = action.payload;
     state.status.state = SliceStatus.ERROR;
+    state.status.error = message;
   },
   success: (state: any, action: PayloadAction) => {
     state.status.state = SliceStatus.SUCCESS;
@@ -36,13 +40,9 @@ export const wrapReduxAsyncHandler = (
       dispatch(statusHandler.success({}));
     })
     .catch((err) => {
+      console.log("Error: ");
       console.error(err);
+      const { statusCode, message } = JSON.parse(err.message);
+      dispatch(statusHandler.error({ statusCode, message }));
     });
-};
-
-export const transformSpriteToBaseImage = (
-  pokemonId: number,
-  baseUrl: string
-): string => {
-  return baseUrl + leftPad(pokemonId, 3) + ".png";
 };

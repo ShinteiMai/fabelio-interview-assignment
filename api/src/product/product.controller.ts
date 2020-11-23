@@ -16,7 +16,6 @@ import { Product } from './entities/product.entity';
 import { ProductService } from './product.service';
 
 @ApiTags('products')
-@ApiBearerAuth()
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -32,6 +31,7 @@ export class ProductController {
   }
 
   @Get('/user')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiResponse({
     status: HttpStatus.OK,
@@ -54,6 +54,7 @@ export class ProductController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @ApiResponse({
     status: HttpStatus.CREATED,
     type: Product,
@@ -64,6 +65,7 @@ export class ProductController {
   }
 
   @Get(':id/view')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiResponse({
     status: HttpStatus.OK,
@@ -76,6 +78,7 @@ export class ProductController {
   }
 
   @Get(':id/unview')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiResponse({
     status: HttpStatus.OK,

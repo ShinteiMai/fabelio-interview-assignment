@@ -12,7 +12,7 @@
     "start": "NODE_ENV=development nest start",
     "start:dev": "NODE_ENV=development nest start --watch",
     "start:debug": "NODE_ENV=development nest start --debug --watch",
-    "start:prod": "NODE_ENV=production node dist/main",
+    "start:prod": "NODE_ENV=production node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -21,10 +21,13 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker:build": "docker build -t nestjs-typeorm-boilerplate:v1.0 .",
     "docker:run": "docker run -it -p 8080 nestjs-typeorm-boilerplate:v1.0",
-    "deploy": "docker-compose --env-file production.env up --build -d",
+    "deploy": "docker-compose --env-file production.env up --build -d --force-recreate --no-deps",
     "cron:register": "NODE_ENV=development ts-node cron/register.ts",
     "cron:colors": "NODE_ENV=development ts-node cron/colors.ts",
-    "cron:products": "NODE_ENV=development ts-node cron/products.ts"
+    "cron:products": "NODE_ENV=development ts-node cron/products.ts",
+    "cron-prod:register": "NODE_ENV=development ts-node cron/register.ts",
+    "cron-prod:colors": "NODE_ENV=development ts-node cron/colors.ts",
+    "cron-prod:products": "NODE_ENV=development ts-node cron/products.ts"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -40,6 +43,7 @@
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
+    "helmet": "^4.2.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",

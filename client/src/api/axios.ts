@@ -17,16 +17,14 @@ export const createApiRequest = async (
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       data,
     });
     return response.data;
   } catch (err) {
-    console.error(err);
-    throw new Error(err);
-    // const statusCode = err.response.status;
-    // const messages = err.response.data.data[0].messages;
-    // throw new Error(JSON.stringify({ statusCode, messages }));
+    const { statusCode, message } = err.response.data;
+    throw new Error(JSON.stringify({ statusCode, message }));
   }
 };
 export const baseImageUrl =
