@@ -23,21 +23,16 @@ const ProductsPage = () => {
           Decorate and make your house more lively with our furnitures that have
           the best quality that you can find in the market.
         </p>
-
-        <div>
+        <div className="py-12">
           {status.state === SliceStatus.LOADING ? (
-            <div>
+            <div className="mx-auto text-center">
               <ScaleLoader />
             </div>
           ) : (
-            <div className="grid grid-">
+            <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-5 gap-y-10">
               {data &&
                 data.map((product) => (
-                  <div
-                    key={product.id}
-                    onClick={() => history.push(`/products/${product.id}`)}
-                    className="cursor-pointer"
-                  >
+                  <div key={product.id} className="cursor-pointer">
                     <ProductCard product={product} />
                   </div>
                 ))}

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import Layout from "../components/Layout";
+import ProductCard from "../components/ProductCard";
 import { productsSelector, viewProduct } from "../features/productSlice";
 interface MatchParams {
   id: string;
@@ -22,9 +23,7 @@ const ProductDetailsPage = ({ match }: RouteComponentProps<MatchParams>) => {
 
   return (
     <Layout title={product?.name || "Product"}>
-      Product Details Page
-      <h1>{product?.name}</h1>
-      <p>Price: Rp.{product?.price}</p>
+      {product && <ProductCard product={product} />}
     </Layout>
   );
 };
