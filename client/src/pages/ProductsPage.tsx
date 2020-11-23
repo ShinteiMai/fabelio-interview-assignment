@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 import Layout from "../components/Layout";
 import ProductCard from "../components/ProductCard";
@@ -9,7 +8,6 @@ import { SliceStatus } from "../globals";
 
 const ProductsPage = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { data, status } = useSelector(productsSelector);
   useEffect(() => {
     dispatch(fetchProducts({}));

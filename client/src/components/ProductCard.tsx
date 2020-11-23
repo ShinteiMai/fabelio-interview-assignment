@@ -21,6 +21,7 @@ const ProductCard = ({ product }: Props) => {
           src={product.productImages[activeColor].imageUrl}
           className="object-contain w-full h-56 hover:opacity-50 transition-all ease-in-out duration-150"
           onClick={() => history.push(`/products/${product.id}`)}
+          alt={product.name}
         />
       </div>
       <div className="px-2">
