@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps, useHistory } from "react-router-dom";
+import { ScaleLoader } from "react-spinners";
 import Layout from "../components/Layout";
 import ProductCard from "../components/ProductCard";
 import {
@@ -8,12 +9,13 @@ import {
   productDetailsSelector,
 } from "../features/productDetailsSlice";
 import { viewProduct } from "../features/productSlice";
+import { SliceStatus } from "../globals";
 interface MatchParams {
   id: string;
 }
 const ProductDetailsPage = ({ match }: RouteComponentProps<MatchParams>) => {
   const productId = match.params.id;
-  const { data } = useSelector(productDetailsSelector);
+  const { data, status } = useSelector(productDetailsSelector);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -33,11 +35,17 @@ const ProductDetailsPage = ({ match }: RouteComponentProps<MatchParams>) => {
       >
         Go Back
       </span>
-      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-5 gap-y-10 mt-8">
-        <div />
-        <div>{data && <ProductCard product={data} />}</div>
-        <div />
-      </div>
+      {status.state === SliceStatus.LOADING ? (
+        <div className="mx-auto">
+          <ScaleLoader />
+        </div>
+      ) : (
+        <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-5 gap-y-10 mt-8">
+          <div />
+          <div>{data && <ProductCard product={data} />}</div>
+          <div />
+        </div>
+      )}
     </Layout>
   );
 };

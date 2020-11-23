@@ -7,15 +7,8 @@ import { validationExceptionFactory } from './common/validation-exception.factor
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: ['https://fabelio.stevenhansel.com'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 200,
-    credentials: true,
-    allowedHeaders:
-      'Origin,X-Requested-With,Content-Type,Accept,Authorization,X-Forwarded-for',
-  });
+
+  app.enableCors();
 
   /** Configuration Options */
   const config = app.get(ConfigService);
