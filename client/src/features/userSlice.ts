@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { stat } from "fs";
 import fromApi from "../api/fromApi";
 import { SliceStatus } from "../globals";
 import { RootState } from "./store";

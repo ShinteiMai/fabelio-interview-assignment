@@ -32,6 +32,7 @@ const LoginPage = () => {
       console.log("got here");
       history.push("/");
     }
+    //eslint-disable-next-line
   }, [status]);
   return (
     <Layout title="Products">

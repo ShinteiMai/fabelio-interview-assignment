@@ -35,6 +35,7 @@ const RegisterPage = () => {
       localStorage.setItem("jwt", "");
       history.push("/login");
     }
+    //eslint-disable-next-line
   }, [status]);
 
   return (

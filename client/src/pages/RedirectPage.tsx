@@ -16,7 +16,7 @@ const RedirectPage = ({ match }: RouteComponentProps<MatchParams>) => {
     } else {
       history.push("/login");
     }
-  }, []);
+  }, [history, jwt]);
 
   return <Layout title={"Redirect"}>Redirecting...</Layout>;
 };

@@ -63,9 +63,17 @@ export const productsSelector = (state: RootState) => state.products;
 
 export const fetchProducts = wrapReduxAsyncHandler(
   statusHandler,
-  async (dispatch, {}) => {
-    const products = await fromApi.getProducts();
-    console.log(products);
+  async (dispatch) => {
+    const products = !localStorage.getItem("jwt")
+      ? await fromApi.getProducts()
+      : await fromApi.getFilteredProducts();
     dispatch(getProductsReducer({ products }));
+  }
+);
+
+export const viewProduct = wrapReduxAsyncHandler(
+  statusHandler,
+  async (dispatch, { productId }) => {
+    await fromApi.viewProduct(productId);
   }
 );

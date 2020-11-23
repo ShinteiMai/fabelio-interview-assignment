@@ -12,6 +12,7 @@ const ProductsPage = () => {
   const { data, status } = useSelector(productsSelector);
   useEffect(() => {
     dispatch(fetchProducts({}));
+    //eslint-disable-next-line
   }, []);
   return (
     <Layout title="Products">

@@ -30,6 +30,14 @@ class ApiCallCreator {
   getProductDetails(id: string) {
     return createApiRequest(`/products/${id}`, HTTP_METHODS.GET, {});
   }
+
+  getFilteredProducts() {
+    return createApiRequest("/products/user", HTTP_METHODS.GET, {});
+  }
+
+  viewProduct(id: string) {
+    return createApiRequest(`/products/${id}/view`, HTTP_METHODS.GET, {});
+  }
 }
 
 const fromApi = new ApiCallCreator();
